@@ -1,4 +1,7 @@
 import { Router, Request, Response } from "express";
+import multer from "multer";
+import uploadConfig from "./config/multer";
+
 import { CreateEmpresaController } from "./controllers/empresa/CreateEmpresaController";
 import { CreateTipoNegocioController } from "./controllers/tipoNegocio/CreateTipoNegocioController";
 import { AuthEmpresaController } from "./controllers/empresa/AuthEmpresaController";
@@ -16,6 +19,11 @@ import { ListCompraController } from "./controllers/compra/ListCompraController"
 import { CreateCompraController } from "./controllers/compra/CreateCompraController";
 
 const router = Router();
+
+// UPLOAD DE IMAGENS
+const upload = multer(uploadConfig.upload("./tmp"));
+
+
 
 /********** ROTAS DAS EMPRESAS *********/
 //Guardar uma nova empresa
@@ -52,7 +60,8 @@ router.get("/tipos-produtos", new ListTipoProdutoController().handle);
 
 /********** ROTAS DOS PRODUTO *********/
 // Cria um novo produto
-router.post("/produto", isAuthenticated, new CreateProdutoController().handle);
+// upload.single("file"): Recebe o nome do arquivo enviado no corpo da requisição
+router.post("/produto", isAuthenticated, upload.single("file"), new CreateProdutoController().handle);
 
 // Lista os produtos
 router.get("/produtos", new ListProdutoController().handle);

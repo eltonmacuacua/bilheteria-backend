@@ -4,18 +4,29 @@ import { CreateProdutoService } from "../../services/produto/CreateProdutoServic
 class CreateProdutoController {
 
     async handle(req: Request, res: Response) {
-        const { nome, imgUrl, descricao, dataInicio,
+        
+        const { nome, descricao, dataInicio,
             dataFim, linkEvento, quantidadeDisponivel,
             valor, empresa_id, tipoProduto_id,
             endereco, cidade, estado, pais } = req.body;
 
         const createProdutoService = new CreateProdutoService();
-        const produto = await createProdutoService.execute({
-            nome, imgUrl, descricao, dataInicio,
-            dataFim, linkEvento, quantidadeDisponivel,
-            valor, empresa_id, tipoProduto_id,
-            endereco, cidade, estado, pais
-        });
-        return res.json(produto);
+
+
+        if (!req.file) {
+            throw new Error("Por favor, envie uma imagem");
+        } else {
+            const { originalname, filename: imgUrl } = req.file;
+            const produto = await createProdutoService.execute({
+                nome, imgUrl, descricao, dataInicio,
+                dataFim, linkEvento, quantidadeDisponivel,
+                valor, empresa_id, tipoProduto_id,
+                endereco, cidade, estado, pais
+            });
+            return res.json(produto);
+        }
+
+
+
     }
 } export { CreateProdutoController }

@@ -10,7 +10,7 @@ interface ProdutoRequest {
     cidade: string;
     estado: string;
     pais: string;
-    valor: number;
+    valor: string;
     quantidadeDisponivel: number;
     empresa_id: string;
     tipoProduto_id: string;

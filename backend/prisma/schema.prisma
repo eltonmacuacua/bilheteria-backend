@@ -95,8 +95,8 @@ model Produtos {
   cidade               String?
   estado               String?
   pais                 String?
-  valor                Float
-  quantidadeDisponivel Int
+  valor                String
+  quantidadeDisponivel Int ?
   tipoProduto          TipoProduto @relation(fields: [tipoProduto_id], references: [id])
   empresas             Empresas[]  @relation("EmpresasProdutos")
   descontos            Desconto[]
