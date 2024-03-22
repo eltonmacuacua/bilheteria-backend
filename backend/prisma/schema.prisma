@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// criar uma migration: yarn prisma migrate dev
+// nome da migration: create-models-bilheteria
+
+model TipoNegocio {
+  id        String     @id @default(uuid())
+  nome      String
+  descricao String?
+  empresas  Empresas[]
+
+  @@map("TipoNegocio")
+}
+
+model TipoProduto {
+  id        String     @id @default(uuid())
+  nome      String
+  descricao String?
+  produtos  Produtos[]
+
+  @@map("TipoProduto")
+}
+
+model Empresas {
+  id          String   @id @default(uuid())
+  nome        String
+  imgUrl      String?
+  email       String
+  username    String?
+  senha       String
+  endereco    String?
+  telefone    String?
+  website     String?
+  statusConta Boolean?
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  tipoNegocio        TipoNegocio          @relation(fields: [tipoNegocio_id], references: [id])
+  tokensAutenticacao TokensAutenticacao[]
+  logsAcessoEmpresas LogsAcessoEmpresas[]
+  produtos           Produtos[]           @relation("EmpresasProdutos")
+  tipoNegocio_id     String
+
+  @@map("Empresas")
+}
+
+model TokensAutenticacao {
+  id            String    @id @default(uuid())
+  token         String
+  dataCriacao   DateTime? @default(now())
+  dataExpiracao DateTime?
+  status        Boolean?
+  empresas      Empresas  @relation(fields: [empresa_id], references: [id])
+  empresa_id    String
+
+  @@map("TokensAutenticacao")
+}
+
+model LogsAcessoEmpresas {
+  id         String    @id @default(uuid())
+  dataHora   DateTime? @default(now())
+  sucesso    Boolean?
+  enderecoIP String?
+  navegador  String?
+  resultado  String?
+  empresas   Empresas  @relation(fields: [empresa_id], references: [id])
+  empresa_id String
+
+  @@map("LogsAcessoEmpresas")
+}
+
+model Produtos {
+  id                   String      @id @default(uuid())
+  nome                 String
+  imgUrl               String?
+  descricao            String?
+  dataInicio           DateTime?
+  dataFim              DateTime?
+  linkEvento           String?
+  endereco             String?
+  cidade               String?
+  estado               String?
+  pais                 String?
+  valor                Float
+  quantidadeDisponivel Int
+  tipoProduto          TipoProduto @relation(fields: [tipoProduto_id], references: [id])
+  empresas             Empresas[]  @relation("EmpresasProdutos")
+  descontos            Desconto[]
+  compras              Compra[]
+  empresa_id           String
+  tipoProduto_id       String
+
+  @@map("Produtos")
+}
+
+model Desconto {
+  id         String    @id @default(uuid())
+  valor      Float
+  descricao  String?
+  dataInicio DateTime?
+  dataFim    DateTime?
+  produtos   Produtos  @relation(fields: [produto_id], references: [id])
+  produto_id String
+
+  @@map("Desconto")
+}
+
+model Clientes {
+  id          String   @id @default(uuid())
+  nome        String
+  telefone    String
+  statusConta Boolean?
+  compras     Compra[]
+
+  @@map("Clientes")
+}
+
+model Compra {
+  id         String   @id @default(uuid())
+  dataCompra DateTime @default(now())
+  produtos   Produtos @relation(fields: [id_produto], references: [id])
+  clientes   Clientes @relation(fields: [id_cliente], references: [id])
+  id_produto String
+  id_cliente String
+
+  @@map("Compra")
+}
