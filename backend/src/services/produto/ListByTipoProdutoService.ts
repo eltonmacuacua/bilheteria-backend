@@ -1,19 +1,19 @@
 import prismaClient from "../../prisma";
 
-interface TipoProdutoRequest {
-    tipo_produto_id: string;
+interface ProductRequest{
+  tipoProduto_id: string;
 }
 
-class ListByTipoProdutoService {
+class ListByTipoProdutoService{
+  async execute({ tipoProduto_id }: ProductRequest){
+    
+    const findByCategory = await prismaClient.produtos.findMany({
+      where:{
+        tipoProduto_id: tipoProduto_id
+      }
+    })
 
-    async execute({ tipo_produto_id }: TipoProdutoRequest) {
-        const produtos = await prismaClient.produtos.findMany({
-            where: {
-                tipoProduto_id: tipo_produto_id
-            }
-        })
-
-        return produtos
-    }
+    return findByCategory;
+  }
 }
 export { ListByTipoProdutoService }

@@ -17,6 +17,8 @@ import { CreateClienteController } from "./controllers/cliente/CreateClienteCont
 import { ListClienteController } from "./controllers/cliente/ListClienteController";
 import { ListCompraController } from "./controllers/compra/ListCompraController";
 import { CreateCompraController } from "./controllers/compra/CreateCompraController";
+import { ListByTipoProdutoController } from "./controllers/produto/ListByTipoProdutoController";
+
 
 const router = Router();
 
@@ -65,6 +67,9 @@ router.post("/produto", isAuthenticated, upload.single("file"), new CreateProdut
 
 // Lista os produtos
 router.get("/produtos", new ListProdutoController().handle);
+
+// Lista os produtos por tipo de produto
+router.get("/tipoProduto/produtos", new ListByTipoProdutoController().handle);
 /********** ROTAS DOS PRODUTO *********/
 
 
