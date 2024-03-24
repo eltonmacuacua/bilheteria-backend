@@ -20,7 +20,7 @@ import { CreateCompraController } from "./controllers/compra/CreateCompraControl
 import { ListByTipoProdutoController } from "./controllers/produto/ListByTipoProdutoController";
 import { ListByTipoNegocioController } from "./controllers/empresa/ListByTipoNegocioController";
 import { CreateDescontoController } from "./controllers/desconto/CreateDescontoController";
-
+import { DeleteProdutoController } from "./controllers/produto/DeleteProdutoController";
 
 const router = Router();
 
@@ -75,6 +75,9 @@ router.get("/produtos", new ListProdutoController().handle);
 
 // Lista os produtos por tipo de produto
 router.get("/tipoProduto/produtos", new ListByTipoProdutoController().handle);
+
+// Deleta um produto
+router.delete("/produto", isAuthenticated, new DeleteProdutoController().handle);
 /********** ROTAS DOS PRODUTO *********/
 
 
