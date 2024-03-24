@@ -18,6 +18,8 @@ import { ListClienteController } from "./controllers/cliente/ListClienteControll
 import { ListCompraController } from "./controllers/compra/ListCompraController";
 import { CreateCompraController } from "./controllers/compra/CreateCompraController";
 import { ListByTipoProdutoController } from "./controllers/produto/ListByTipoProdutoController";
+import { ListByTipoNegocioController } from "./controllers/empresa/ListByTipoNegocioController";
+import { CreateDescontoController } from "./controllers/desconto/CreateDescontoController";
 
 
 const router = Router();
@@ -39,6 +41,9 @@ router.get("/me", isAuthenticated, new DetailEmpresasController().handle)
 
 // Lista todas as empresas
 router.get("/empresas", new ListEmpresaController().handle);
+
+// Lista as empresas por tipo de negocio
+router.get("/tipo-negocio/empresas", new ListByTipoNegocioController().handle);
 /********** ROTAS DAS EMPRESAS *********/
 
 
@@ -90,6 +95,13 @@ router.get("/compras", new ListCompraController().handle);
 // Cria um novo cliente
 router.get("/compra", new CreateCompraController().handle);
 /********** ROTAS DOS CLIENTES *********/
+
+
+/********** ROTAS DOS DESCONTOS *********/
+// Cria um novo desconto
+router.post("/desconto", new CreateDescontoController().handle);    
+/********** ROTAS DOS DESCONTOS *********/
+
 
 
 

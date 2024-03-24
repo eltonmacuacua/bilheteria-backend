@@ -5,6 +5,7 @@
  * Ele recebe um objeto com os dados do usuário e retorna o usuário criado.
  * Caso ocorra algum erro durante a criação do usuário, ele será rejeitado com uma mensagem de erro.
  */
+
 import prismaClient from "../../prisma";
 import { hash } from "bcryptjs";
 
@@ -84,7 +85,7 @@ class CreateEmpresaService {
         });
 
         console.log("Empresa criada com sucesso!");
-        console.log(empresa);
+        //console.log(empresa);
 
         return empresa;
     }
