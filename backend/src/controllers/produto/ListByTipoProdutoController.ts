@@ -1,6 +1,5 @@
 import {Request, Response} from 'express'
 import { ListByTipoProdutoService } from '../../services/produto/ListByTipoProdutoService';
-import prismaClient from '../../prisma';
 
 class ListByTipoProdutoController{
 

@@ -22,6 +22,7 @@ import { ListByTipoNegocioController } from "./controllers/empresa/ListByTipoNeg
 import { CreateDescontoController } from "./controllers/desconto/CreateDescontoController";
 import { DeleteProdutoController } from "./controllers/produto/DeleteProdutoController";
 import { EditProdutoController } from "./controllers/produto/EditProdutoController";
+import { ListByIdProdutoController } from "./controllers/produto/ListByIdProdutoController";
 
 
 const router = Router();
@@ -83,6 +84,9 @@ router.delete("/produto", isAuthenticated, new DeleteProdutoController().handle)
 
 // Edita um produto
 router.put("/produto", isAuthenticated, upload.single("file"), new EditProdutoController().handle);
+
+// Listar o valor de um produto pelo id
+router.get("/produtos/id", new ListByIdProdutoController().handle);
 /********** ROTAS DOS PRODUTO *********/
 
 
@@ -96,7 +100,7 @@ router.get("/clientes", new ListClienteController().handle);
 
 
 
-/********** ROTAS DOS CLIENTES *********/
+/********** ROTAS DOS COMPRAS *********/
 // List clientes
 router.get("/compras", new ListCompraController().handle);
 
