@@ -101,11 +101,11 @@ router.get("/clientes", new ListClienteController().handle);
 
 
 /********** ROTAS DOS COMPRAS *********/
-// List clientes
+// List as compras
 router.get("/compras", new ListCompraController().handle);
 
-// Cria um novo cliente
-router.get("/compra", new CreateCompraController().handle);
+// Cria uma nova compra
+router.post("/compras", new CreateCompraController().handle);
 /********** ROTAS DOS CLIENTES *********/
 
 

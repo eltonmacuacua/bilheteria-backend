@@ -1,6 +1,6 @@
 import prismaClient from "../../prisma";
 
-export class ListCompraService{
+export class ListCompraService {
     async handle() {
         const compras = await prismaClient.compra.findMany({
             select: {
