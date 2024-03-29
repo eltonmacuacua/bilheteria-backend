@@ -21,13 +21,12 @@ CREATE TABLE "Empresas" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "imgUrl" TEXT,
-    "email" TEXT,
-    "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT,
     "senha" TEXT NOT NULL,
     "endereco" TEXT,
     "telefone" TEXT,
     "website" TEXT,
-    "dataRegistro" TIMESTAMP(3),
     "statusConta" BOOLEAN,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
@@ -40,7 +39,7 @@ CREATE TABLE "Empresas" (
 CREATE TABLE "TokensAutenticacao" (
     "id" TEXT NOT NULL,
     "token" TEXT NOT NULL,
-    "dataCriacao" TIMESTAMP(3),
+    "dataCriacao" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "dataExpiracao" TIMESTAMP(3),
     "status" BOOLEAN,
     "empresa_id" TEXT NOT NULL,
@@ -51,7 +50,7 @@ CREATE TABLE "TokensAutenticacao" (
 -- CreateTable
 CREATE TABLE "LogsAcessoEmpresas" (
     "id" TEXT NOT NULL,
-    "dataHora" TIMESTAMP(3),
+    "dataHora" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "sucesso" BOOLEAN,
     "enderecoIP" TEXT,
     "navegador" TEXT,
@@ -74,8 +73,8 @@ CREATE TABLE "Produtos" (
     "cidade" TEXT,
     "estado" TEXT,
     "pais" TEXT,
-    "valor" DOUBLE PRECISION NOT NULL,
-    "quantidadeDisponivel" INTEGER NOT NULL,
+    "valor" TEXT NOT NULL,
+    "quantidadeDisponivel" INTEGER,
     "empresa_id" TEXT NOT NULL,
     "tipoProduto_id" TEXT NOT NULL,
 
@@ -107,7 +106,8 @@ CREATE TABLE "Clientes" (
 -- CreateTable
 CREATE TABLE "Compra" (
     "id" TEXT NOT NULL,
-    "dataCompra" TIMESTAMP(3) NOT NULL,
+    "dataCompra" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "quantidadeComprada" INTEGER NOT NULL,
     "id_produto" TEXT NOT NULL,
     "id_cliente" TEXT NOT NULL,
 

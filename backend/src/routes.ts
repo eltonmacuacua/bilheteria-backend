@@ -102,7 +102,7 @@ router.get("/clientes", new ListClienteController().handle);
 
 /********** ROTAS DOS COMPRAS *********/
 // List as compras
-router.get("/compras", new ListCompraController().handle);
+router.get("/compras", isAuthenticated, new ListCompraController().handle);
 
 // Cria uma nova compra
 router.post("/compras", new CreateCompraController().handle);

@@ -20,6 +20,7 @@ export class CreateProdutoService {
         imgUrl, descricao, dataInicio, dataFim, linkEvento, 
         quantidadeDisponivel, endereco, cidade, estado, pais }: ProdutoRequest) {
 
+        const quantidadeInteira = parseInt(quantidadeDisponivel.toString(), 10);
 
         if (!nome) {
             throw new Error("Preencha os campos correctamente");
@@ -40,7 +41,7 @@ export class CreateProdutoService {
                 dataInicio,
                 dataFim,
                 linkEvento,
-                quantidadeDisponivel, 
+                quantidadeDisponivel: quantidadeInteira, 
                 endereco,
                 cidade,
                 estado,

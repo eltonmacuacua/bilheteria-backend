@@ -132,6 +132,7 @@ model Clientes {
 model Compra {
   id         String   @id @default(uuid())
   dataCompra DateTime @default(now())
+  quantidadeComprada Int
   produtos   Produtos @relation(fields: [id_produto], references: [id])
   clientes   Clientes @relation(fields: [id_cliente], references: [id])
   id_produto String
